@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t tomgprice90/react-test -f ./client/Dockerfile.dev ./client
+
+  script:
+    - docker run tomgprice90/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t tomgprice90/multi-client ./client
+  - docker build -t tomgprice90/multi-nginx ./nginx
+  - docker build -t tomgprice90/multi-server ./server
+  - docker build -t tomgprice90/multi-worker ./worker
