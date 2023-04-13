@@ -5,7 +5,7 @@ services:
 before_install:
   - docker build -t tomgprice90/react-test -f ./client/Dockerfile.dev ./client
 
-  script:
+script:
   - docker run -e CI=true tomgprice90/react-test npm test -- --coverage
 
 after_success:
